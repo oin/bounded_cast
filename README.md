@@ -13,8 +13,8 @@ auto convertedValueOfTypeB = bounded_cast<TypeB, TypeA>(valueOfTypeA);
 However, you may also use tag structures that define a particular bounded range and an arithmetic type.
 Some are already defined for convenience:
 
- - `float01` is a tag defining `float` values between 0 and 1
- - `unsigned_int<7>` is a tag defining `uint8_t` values between 0 and 127
+ - `float01` defines `float` values between 0 and 1
+ - `unsigned_int<7>` defines `uint8_t` values between 0 and 127
 
 ## Examples
 
