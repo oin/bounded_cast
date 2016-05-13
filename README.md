@@ -1,4 +1,4 @@
-**bounded_cast** is a small header-only library allows you to perform conversions between numbers of different types and within different bounded ranges.
+**bounded_cast** is a small header-only library for conversions between numbers of different types and within different bounded ranges.
 
 Read [bounded_cast.hpp](bounded_cast.hpp) for details, and [test.cpp](test.cpp) for an example.
 
