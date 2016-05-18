@@ -39,6 +39,8 @@ int main(int argc, char** argv) {
 
 	std::normal_distribution<float> dist;
 
+	std::cout << "STATIC DOMAINS:" << std::endl << std::endl;
+
 	std::cout << "* from float11:" << std::endl << std::endl;
 	convert<float11>(-1);
 	convert<float11>(0);
@@ -59,6 +61,12 @@ int main(int argc, char** argv) {
 	convert<unsigned_int<12>>(1300);
 	convert<unsigned_int<12>>(6000);
 	convert<unsigned_int<12>>(dist(e));
+
+	std::cout << "DYNAMIC DOMAINS:" << std::endl << std::endl;
+
+	std::cout << "150<dynamic float(100,200)> to dynamic int8(-10, 50): " << +domain_cast(make_domain<int8_t>(-10, 50), 150, make_domain(100.0f, 200.0f)) << std::endl;
+	std::cout << "2047<static uint12> to dynamic float(100,200): " << +domain_cast<unsigned_int<12>>(make_domain(100.0f, 200.0f), 2047) << std::endl;
+	std::cout << "150<dynamic float(100,200)> to static uint12: " << +domain_cast<unsigned_int<12>>(150, make_domain(100.0f, 200.0f)) << std::endl;
 
 	return 0;
 }
