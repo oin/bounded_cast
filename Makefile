@@ -4,7 +4,7 @@ all: run
 run: test
 	./test
 
-test: test.cpp bounded_cast.hpp
+test: test.cpp numeric_domain.hpp
 	$(CXX) -std=c++11 -Wall -O3 -o $@ $<
 
 clean:

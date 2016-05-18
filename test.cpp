@@ -1,6 +1,6 @@
-#include "bounded_cast.hpp"
+#include "numeric_domain.hpp"
 
-using namespace bounded_cast;
+using namespace numeric_domain;
 
 #include <iostream>
 #include <sstream>
@@ -9,24 +9,24 @@ using namespace bounded_cast;
 template <typename T>
 std::string print_min_and_max_of_bounds() {
 	std::ostringstream oss;
-	oss << " (min: " << +bounds_of<T>::min() << ", max: " << +bounds_of<T>::max() << ") ";
+	oss << " (min: " << +numeric_domain<T>::min() << ", max: " << +numeric_domain<T>::max() << ") ";
 	return oss.str();
 }
 
 template <typename T>
-void convert(value_type_with_bounds<T> v) {
+void convert(value_type_of<T> v) {
 	std::cout << "          " << v << std::endl;
-	std::cout << " float11: " << +bounded_cast<float11,T>(v) << print_min_and_max_of_bounds<float11>() << std::endl;
-	std::cout << " float01: " << +bounded_cast<float01,T>(v) << print_min_and_max_of_bounds<float01>() << std::endl;
-	std::cout << " float05: " << +bounded_cast<float_0_and_0_5,T>(v) << print_min_and_max_of_bounds<float_0_and_0_5>() << std::endl;
-	std::cout << " uint8_t: " << +bounded_cast<uint8_t,T>(v) << print_min_and_max_of_bounds<uint8_t>() << std::endl;
-	std::cout << "  int8_t: " << +bounded_cast<int8_t,T>(v) << print_min_and_max_of_bounds<int8_t>() << std::endl;
-	std::cout << "   uint7: " << +bounded_cast<unsigned_int<7>,T>(v) << print_min_and_max_of_bounds<unsigned_int<7>>() << std::endl;
-	std::cout << "    int7: " << +bounded_cast<signed_int<7>,T>(v) << print_min_and_max_of_bounds<signed_int<7>>() << std::endl;
-	std::cout << "  uint12: " << +bounded_cast<unsigned_int<12>,T>(v) << print_min_and_max_of_bounds<unsigned_int<12>>() << std::endl;
-	std::cout << "   int12: " << +bounded_cast<signed_int<12>,T>(v) << print_min_and_max_of_bounds<signed_int<12>>() << std::endl;
-	std::cout << "uint16_t: " << +bounded_cast<uint16_t,T>(v) << print_min_and_max_of_bounds<uint16_t>() << std::endl;
-	std::cout << " int16_t: " << +bounded_cast<int16_t,T>(v) << print_min_and_max_of_bounds<int16_t>() << std::endl;
+	std::cout << " float11: " << +domain_cast<float11,T>(v) << print_min_and_max_of_bounds<float11>() << std::endl;
+	std::cout << " float01: " << +domain_cast<float01,T>(v) << print_min_and_max_of_bounds<float01>() << std::endl;
+	std::cout << " float05: " << +domain_cast<float_0_and_0_5,T>(v) << print_min_and_max_of_bounds<float_0_and_0_5>() << std::endl;
+	std::cout << " uint8_t: " << +domain_cast<uint8_t,T>(v) << print_min_and_max_of_bounds<uint8_t>() << std::endl;
+	std::cout << "  int8_t: " << +domain_cast<int8_t,T>(v) << print_min_and_max_of_bounds<int8_t>() << std::endl;
+	std::cout << "   uint7: " << +domain_cast<unsigned_int<7>,T>(v) << print_min_and_max_of_bounds<unsigned_int<7>>() << std::endl;
+	std::cout << "    int7: " << +domain_cast<signed_int<7>,T>(v) << print_min_and_max_of_bounds<signed_int<7>>() << std::endl;
+	std::cout << "  uint12: " << +domain_cast<unsigned_int<12>,T>(v) << print_min_and_max_of_bounds<unsigned_int<12>>() << std::endl;
+	std::cout << "   int12: " << +domain_cast<signed_int<12>,T>(v) << print_min_and_max_of_bounds<signed_int<12>>() << std::endl;
+	std::cout << "uint16_t: " << +domain_cast<uint16_t,T>(v) << print_min_and_max_of_bounds<uint16_t>() << std::endl;
+	std::cout << " int16_t: " << +domain_cast<int16_t,T>(v) << print_min_and_max_of_bounds<int16_t>() << std::endl;
 	std::cout << std::endl;
 }
 
