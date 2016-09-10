@@ -54,7 +54,7 @@ using extent_type_of = decltype(std::declval<value_type_of<T>>() - std::declval<
  * Return the extent of a numeric_domain type; i.e., the difference between its maximum and its minimum value.
  */
 template <typename T>
-extent_type_of<T> extent_of() {
+constexpr extent_type_of<T> extent_of() {
 	return numeric_domain<T>::max() - numeric_domain<T>::min();
 }
 
@@ -156,12 +156,26 @@ dynamic_domain<value_type_of<T>> make_domain() {
 	return dynamic_domain<value_type_of<T>>(numeric_domain<T>::min(), numeric_domain<T>::max());
 }
 
+// Using a functor here should allow an optimization when casting between the same type (partial function template specialization isn't allowed).
+template <typename U, typename T>
+struct domain_caster {
+	value_type_of<U> operator()(const value_type_of<T> value) {
+		return domain_convert(value, numeric_domain<T>::min(), numeric_domain<T>::max(), extent_of<T>(), numeric_domain<U>::min(), extent_of<U>());
+	}
+};
+template <typename U>
+struct domain_caster<U,U> {
+	value_type_of<U> operator()(const value_type_of<U> value) {
+		return value;
+	}
+};
+
 /**
  * Convert a value within numeric_domain<T> to numeric_domain<U>.
  */
 template <typename U, typename T>
 value_type_of<U> domain_cast(const value_type_of<T> value) {
-	return domain_convert(value, numeric_domain<T>::min(), numeric_domain<T>::max(), extent_of<T>(), numeric_domain<U>::min(), extent_of<U>());
+	return domain_caster<U,T>()(value);
 }
 
 /**
