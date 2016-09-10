@@ -73,6 +73,17 @@ U domain_convert(const T t, const T tmin, const T tmax, const TExtent textent, c
 }
 
 /**
+ * Convert a value within specific bounds.
+ *
+ * The value is clamped if outside (tmin, tmax).
+ * It is then rescaled to the range described by umin and uextent.
+ */
+template <typename U, typename UExtent, typename T, typename TExtent>
+constexpr U static_domain_convert(const T t, const T tmin, const T tmax, const TExtent textent, const U umin, const UExtent uextent) {
+	return static_cast<U>(umin + (std::max(tmin, std::min(tmax, t)) - tmin) * uextent / textent);
+}
+
+/**
  * Template specialization of numeric_domain for arithmetic types.
  */
 template <typename T>
@@ -174,8 +185,12 @@ struct domain_caster<U,U> {
  * Convert a value within numeric_domain<T> to numeric_domain<U>.
  */
 template <typename U, typename T>
-value_type_of<U> domain_cast(const value_type_of<T> value) {
+value_type_of<U> domain_cast(const value_type_of<T>& value) {
 	return domain_caster<U,T>()(value);
+}
+template <typename U, typename T>
+constexpr value_type_of<U> domain_cast(const value_type_of<T>&& value) {
+	return static_domain_convert(value, numeric_domain<T>::min(), numeric_domain<T>::max(), extent_of<T>(), numeric_domain<U>::min(), extent_of<U>());
 }
 
 /**
